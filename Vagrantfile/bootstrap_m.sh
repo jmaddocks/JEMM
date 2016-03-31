@@ -40,7 +40,7 @@ else # run provision for first time - install all
 	wget -nv http://$1/aaron/downloads/jdk-7u79-linux-x64.tar.gz -O /etc/puppet/modules/java/files/jdk-7u79-linux-x64.tar.gz
 	wget -nv http://$1/aaron/downloads/atlassian-jira-6.4.9-x64.bin -O /etc/puppet/modules/jira/files/atlassian-jira-6.4.9-x64.bin
 	wget -nv http://$1/aaron/downloads/apache-maven-3.3.3-bin.tar.gz -O /etc/puppet/modules/maven/files/apache-maven-3.3.3-bin.tar.gz
-	wget -nv http://repo.zabbix.com/zabbix/2.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.4-1+trusty_all.deb -O /etc/puppet/modules/zabbix/files/zabbix-2.4.1.deb
+	wget -nv http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb -O /etc/puppet/modules/zabbix/files/zabbix-3.0.1.deb
 	
 	#enable agent
 	puppet agent --enable
