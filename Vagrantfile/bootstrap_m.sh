@@ -43,7 +43,7 @@ else # run provision for first time - install all
 	wget -nv http://$1/aaron/downloads/apache-maven-3.3.3-bin.tar.gz -O /etc/puppet/modules/maven/files/apache-maven-3.3.3-bin.tar.gz
 	wget -nv http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb -O /etc/puppet/modules/zabbix/files/zabbix-3.0.1.deb
 	
-	#enable agent
+	#enable agenta.
 	puppet agent --enable
 fi
 
