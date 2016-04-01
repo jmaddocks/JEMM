@@ -25,7 +25,8 @@ else # run provision for first time - install all
 	
 	#site.pp
 	echo -e "node '$(facter fqdn)' {\n\trequire java\n\trequire jira\n\trequire maven\n\trequire git\n\trequire jenkins\n\trequire zabbix\n}" >> /etc/puppet/manifests/site.pp
-	echo -e "node 'agentCM.netbuilder.private' {\n\trequire java\n\trequire jira\n\trequire maven\n\trequire gitn\trequire jenkins\n}" >> /etc/puppet/manifests/site.pp
+	echo -e "node 'JEMMagent1.qac.local' {\n\trequire java\n\trequire jira\n\trequire maven\n\trequire gitn\trequire jenkins\n}" >> /etc/puppet/manifests/site.pp
+	echo -e "node 'JEMMagent2.qac.local' {\n\trequire java\n\trequire jira\n\trequire maven\n\trequire gitn\trequire jenkins\n}" >> /etc/puppet/manifests/site.pp
 	echo "JEMMagent1.qac.local" >> /etc/puppet/autosign.conf
 	echo "JEMMagent2.qac.local" >> /etc/puppet/autosign.conf
 
