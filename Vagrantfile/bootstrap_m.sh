@@ -7,7 +7,7 @@ sudo apt-get update
 sudo apt-get install -y openssh-server openssh-client
 ifconfig
 sudo ufw disable
-
+sudo apt-get install -y vim
 #copy over puppet modules
 cp -r /tmp/modules/* /etc/puppet/modules/
 
