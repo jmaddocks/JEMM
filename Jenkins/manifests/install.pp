@@ -10,6 +10,9 @@ class jenkins::install(
 
 	Exec { 'install_jenkins_package_keys':class jenkins {
 	
+	exec { 'install_jenkins_package_keys':
+		command => '/usr/bin/wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | /usr/bin/apt-key add - ',
+  }
 		
 
 	file { "${jenkins_path}":
@@ -21,59 +24,11 @@ class jenkins::install(
 	
 	package { 'jenkins':
 		ensure => latest,
-		require => File ["${jenkins_path}"],
+		require => File ["${install_jenkins_package_keys}${jenkins_path}"],
 	}
 	
 	service { "jenkins":
 		ensure => running,
 	}
 }
-
-	
-	
-	//do I put in a require => wget key thingy even if the bootstrap has it in?
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	//$jenkins_path 		= "/usr/lib/jenkins/",
-//	$jenkins_tar	 	= "",
-	//$jenkins_version	= "jenkins-1.656",
-//	$jenkins_key		= "http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key",
-	
-
-
-
-//need the jenkins binary installer first-possibly put into files folder
-
- //	Exec {
-//		path => ["/bin", "/usr/bin", "/usr/sbin"] 
-	//}//binaries required for code below to be recognised
-	
-//	file {"${jenkins_key}":
-//		ensure => 
-//	}
-	
-	
-	
-//	file { "${jenkins_path}":
-//		ensure => 'directory',
-//	} //making sure we are in that current directory
-	
-//	file { "${}":
-//		ensure  => 'present',
-//		require => File ["${jenkins_path}"]
-//	}
-	
-	service { "jenkins":
-		ensure => running,
-	}
+}
