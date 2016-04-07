@@ -3,9 +3,9 @@ class java::install (
 		#home : where the file will be 
 		#version : java version
 		
-		$java_archive = "jdk-7u79-linux-x64.tar.gz",
+		$java_archive = "java.tar.gz",
 		$java_home = "/usr/local/java",
-		$java_version = "jdk1.7.0_79/")
+		$java_version = "jdk1.8.0_45/")
 		
 	{
 	Exec {
@@ -22,7 +22,7 @@ class java::install (
 		require => File ["${java_home}"],
 	}
 
-	exec {"${extract_java"}:
+	exec {"${extract_java}":
 		cwd 	=> "${java_home}",
 		command => "tar zxvf ${java_archive}",
 		creates => "${java_home}${java_version}",
@@ -31,12 +31,12 @@ class java::install (
 	
 	exec {"${install_java}":
 		require   => Exec["extract_java"],
-		logoutput => true
-		command   => "update-alternatives --install /bin/java java ${java_home}${java_version}bin/java 1080 && update-alternatives --install /bin/javac javac ${java_home}${java_version}bin/javac 1",
+		logoutput => true,
+		command   => "update-alternatives --install /bin/java java ${java_home}${java_version}bin/java 100 && update-alternatives --install /bin/javac javac ${java_home}${java_version}bin/javac 100",
 	}
 	
-	exec {"${set java}":
-		require   => Exec['install java'],
+	exec {"${set_java}":
+		require   => Exec['install_java'],
 		logoutput => true,
 		command   => "update-alternatives --set java £{java_home}/bin/java"
 	}
