@@ -1,1 +1,0 @@
-{"virtualbox":{"/tmp/shared":{"guestpath":"/tmp/shared","hostpath":"E:/JEMM_Project/project_stuff/vagrantfile/shared","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"E:/JEMM_Project/project_stuff/vagrantfile","disabled":false,"__vagrantfile":true}}}
