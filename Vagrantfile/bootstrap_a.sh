@@ -11,15 +11,18 @@ if grep -aq "puppetmaster" /etc/hosts
 then # provision has already been run - update hosts
 
 	#update ip in hosts
-	sed -i "1s/.*/$1\tJEMMmaster.qac.local\tpuppetmaster/" /etc/hosts
+	sed -i "192.168.1.223\tJEMMmaster.qac.local\tpuppetmaster/" /etc/hosts
 
 else # run provision for first time - install all	
+
+	sed -i "192.168.1.223\tJEMMmaster.qac.local\tpuppetmaster/" /etc/hosts
+
 	
 	apt-get install -y openssh-server puppet
 
-	echo -e "$1\tJEMMmaster.qac.local\tpuppetmaster\n127.0.0.1\t$(facter fqdn)\tpuppet\n$(facter ipaddress_eth1)\t$(facter fqdn)\tpuppet" | cat - /etc/hosts > temp && sudo mv temp /etc/hosts
+	echo -e "\tJEMMmaster.qac.local\tpuppetmaster\n127.0.0.1\t$(facter fqdn)\tpuppet\n$(facter ipaddress_eth1)\t$(facter fqdn)\tpuppet" | cat - /etc/hosts > temp && sudo mv temp /etc/hosts
 
-	sed -i '1s/.*/[main]\nserver=JEMMmaster.qac.local/' /etc/puppet/puppet.conf
+	sed -i '/.*/[main]\nserver=JEMMmaster.qac.local/' /etc/puppet/puppet.conf
 	puppet agent --enable
 
 fi 

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#export VAGRANT_HOME= "E:/JEMM_Project/project_stuff/vagrantfile/"
 
 Vagrant.configure("2") do |config|
 	config.vm.boot_timeout = 400
@@ -6,7 +7,7 @@ Vagrant.configure("2") do |config|
 				
 	config.vm.define "master" do |master|
 		master.vm.hostname = "JEMMmaster.qac.local"
-		master.vm.box = "chad-thompson/ubuntu-trusty64-gui"
+		master.vm.box = "Ubuntu_15.10_x86.64"
 		master.vm.network :public_network, :public_network => "wlan0", ip: "192.168.1.223"
 		master.vm.provision :shell, path: "bootstrap_m.sh"
 		master.vm.provider :virtualbox do |masterVM|
@@ -19,7 +20,7 @@ Vagrant.configure("2") do |config|
 	
 	config.vm.define "agent1" do |agent1|
 		agent1.vm.hostname = "JEMMagent1.qac.local"
-		agent1.vm.box = "chad-thompson/ubuntu-trusty64-gui"
+		agent1.vm.box = "Ubuntu_15.10_x86.64"
 		agent1.vm.network :public_network, :public_network => "wlan0", ip: "192.168.1.224"
 		agent1.vm.provision :shell, path: "bootstrap_a.sh"
 		agent1.vm.provider :virtualbox do |agent1VM|
@@ -32,7 +33,7 @@ Vagrant.configure("2") do |config|
 	
 	config.vm.define "agent2" do |agent2|
 		agent2.vm.hostname = "JEMMagent2.qac.local"
-		agent2.vm.box = "chad-thompson/ubuntu-trusty64-gui"
+		agent2.vm.box = "Ubuntu_15.10_x86.64"
 		agent2.vm.network :public_network, :public_network => "wlan0", ip: "192.168.1.225"
 		agent2.vm.provision :shell, path: "bootstrap_a.sh"
 		agent2.vm.provider :virtualbox do |agent2VM|
