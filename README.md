@@ -15,4 +15,4 @@ Zabbix  - EM
 
 ### Vagrant File
 
-The vagrant file contains information for a master and two agents. The bootstrap files will download the binary files and tarball and install ssh, putty, vim and puppet.
+The vagrant file contains information for a master and two agents. The bootstrap files will download the binary files and tarball for the modules and install the packages ssh, putty, vim and puppet.
