@@ -1,6 +1,6 @@
 # JEMM
 
-This repository contains the deliverables from the assigned uppet Project. This project creates a virtualised environment using Vagrant to automate the process including packages that are relevant to us 
+This repository contains the deliverables from the assigned uppet Project. This project creates a virtualised environment using Vagrant to automate the process including packages that are relevant to us.  
 
 ### Modules
 

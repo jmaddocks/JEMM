@@ -1,19 +1,18 @@
-class java::install (
+class java::install {
 		#archive : find where file is 
 		#home : where the file will be 
 		#version : java version
 		
 		$java_archive = "java.tar.gz",
 		$java_home = "/usr/local/java",
-		$java_version = "jdk1.8.0_45/")
+		$java_version = "jdk1.8.0_45/"
 		
-	{
 	Exec {
-	path => ["/bin", "/usr/bin", "/usr/sbin"] #path to place file
+		path => ["/bin", "/usr/bin", "/usr/sbin"] #path to place file
 	}
 	
 	file {"${java_home}" :	
-		ensure => "directory", #making java_home is the directory
+		ensure => 'directory', #making java_home is the directory
 	}
 	
 	file {"${java_home}${java_archive}":
