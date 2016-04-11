@@ -1,14 +1,14 @@
-class maven::install (
+class maven::install {
 	$mavenPath = "/usr/lib/maven/",
 	$mavenVersion = "apache-maven-3.3.3")
-	{
+	
 
 	Exec {
 		path => ["/bin","/usr/bin","/usr/sbin"]
 	}
 
 	file{"${mavenPath}" :
-		ensure => "directory"
+		ensure => 'directory'
 	}
 	
 	file { "${mavenPath}${mavenVersion}-bin.tar.gz":

@@ -1,14 +1,14 @@
-class zabbix::install (
+class zabbix::install {
 	$zabbixPath= "/usr/lib/zabbix/",
 	$zabbixVersion = "zabbix-2.4.1")
-	{
+	
 
 	Exec {
 		path => ["/bin","/usr/bin","/usr/sbin"]
 	}
 
 	file{"${zabbixPath}" :
-		ensure => "directory"
+		ensure => 'directory'
 	}
 	
 	file { "${zabbixPath}${zabbixVersion}-bin.tar.gz":
