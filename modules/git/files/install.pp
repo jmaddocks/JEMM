@@ -2,8 +2,8 @@ class git::install (
 	//declaring variables to reduce repeating long winded file names
 	
 	$git_path     = "/usr/lib/git/", 		//where to save file
-	$git_version  = "git-2.5.0",		    //version of git to install
-	$git_tar	  = "git-2.5.0.tar.gz", 	//git tarball
+	$git_version  = "git-2.8.1",		    //version of git to install
+	$git_tar      = "git-2.8.1.tar.gz", 	//git tarball
 	$git_packages = "[libcurl4-gnutls-dev","libexpat1-dev", "gettext", "libz-dev", "libssl-dev]",
 	//git requres these packages to function properly:URL transfer library;XML parsing c library development kit;internationalise the language;virtual package;SSL development libraries
 	)
@@ -23,7 +23,7 @@ class git::install (
 	
 	file { "${git_path}${git_tar}":
 		ensure  => 'present',
-		source  => "puppet:///modules/git/${git_tar}",
+		source  => "puppet:///modules/git/files/${git_tar}",
 		require => File["${git_path}"],			//ensuring the file exists if not find the source
 	}
 		
