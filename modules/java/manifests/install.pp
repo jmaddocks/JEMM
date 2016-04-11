@@ -7,9 +7,8 @@ class java::install {
 		$java_home = "/usr/local/java",
 		$java_version = "jdk1.8.0_45/"
 		
-	{
 	Exec {
-	path => ["/bin", "/usr/bin", "/usr/sbin"] #path to place file
+		path => ["/bin", "/usr/bin", "/usr/sbin"] #path to place file
 	}
 	
 	file {"${java_home}" :	
@@ -40,5 +39,4 @@ class java::install {
 		logoutput => true,
 		command   => "update-alternatives --set java £{java_home}/bin/java"
 	}
-}
 }

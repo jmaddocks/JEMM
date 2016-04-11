@@ -7,7 +7,7 @@ class zabbix::install {
 		path => ["/bin","/usr/bin","/usr/sbin"]
 	}
 
-	file{"${zabbixPath}" :
+	file {"${zabbixPath}" :
 		ensure => 'directory'
 	}
 	
@@ -17,13 +17,13 @@ class zabbix::install {
 		require => File["${zabbixPath}"]
 	}
 
-	exec{ "extract zabbix" :
+	exec { "extract zabbix" :
 		require	=> File["${zabbixPath}${zabbixVersion}-bin.tar.gz"],
 		cwd	=> "${zabbixPath}",
 		command	=> "tar zxvf ${zabbixVersion}-bin.tar.gz"
 	}
 
-	exec{ "install zabbix" :
+	exec { "install zabbix" :
 		require => Exec["extract zabbix"],
 		command => "update-alternatives --install /bin/zabbix zabbix ${zabbixPath}${zabbixVersion}/bin/zabbix 1"
 	}

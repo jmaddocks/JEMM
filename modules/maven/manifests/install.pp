@@ -7,7 +7,7 @@ class maven::install {
 		path => ["/bin","/usr/bin","/usr/sbin"]
 	}
 
-	file{"${mavenPath}" :
+	file {"${mavenPath}" :
 		ensure => 'directory'
 	}
 	
@@ -17,13 +17,13 @@ class maven::install {
 		require => File["${mavenPath}"]
 	}
 
-	exec{ "extract maven" :
+	exec { "extract maven" :
 		require	=> File["${mavenPath}${mavenVersion}-bin.tar.gz"],
 		cwd	=> "${mavenPath}",
 		command	=> "tar zxvf ${mavenVersion}-bin.tar.gz"
 	}
 
-	exec{ "install maven" :
+	exec { "install maven" :
 		require => Exec["extract maven"],
 		command => "update-alternatives --install /bin/mvn mvn ${mavenPath}${mavenVersion}/bin/mvn 1"
 	}
