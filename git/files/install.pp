@@ -38,10 +38,4 @@ class git::install (
 		require => Exec["${extract git}"],
 		cwd  	=> "${git_path}${git_version}",
 		command => "make prefix=/usr/local all && make prefix=/usr/local install", 	//Install
-	}	
-	
-
-	
-	
-	
-	
+	}
