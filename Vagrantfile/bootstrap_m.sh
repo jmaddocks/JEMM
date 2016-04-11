@@ -19,8 +19,6 @@ else # run provision for first time - install all
 	apt-get install -y openssh-server openssh-client
 	apt-get install -y openssh-server puppetmaster
 	
-	sed -i "1s/.*/$(facter ipaddress_eth1)\t$(facter fqdn)\tpuppetmaster/" /etc/hosts
-	
 	#hosts
 	echo -e "127.0.0.1\t$(facter fqdn)\tpuppetmaster\n$(facter ipaddress_eth1)\t$(facter fqdn)\tpuppetmaster" | cat - /etc/hosts > temp && sudo mv temp /etc/hosts
 	
@@ -31,8 +29,8 @@ else # run provision for first time - install all
 
 
 	#set default puppet master
-	echo -e "[agent]" >> /etc/puppet/puppet.conf
-	sed -i '18s/.*/[agent]\nserver=JEMMmaster.qac.local/' /etc/puppet/puppet.conf
+	
+	sed -i '1s/.*/[main]\nserver=JEMMmaster.qac.local/' /etc/puppet/puppet.conf
 
 	
 	#certification
@@ -45,7 +43,7 @@ else # run provision for first time - install all
 	mkdir /etc/puppet/modules/{git,java,jira,maven,zabbix,jenkins}/files
 	
 	#download files
-	wget -nv http://$1/aaronmulholland/downloads/git-2.5.0.tar.qz -O /etc/puppet/modules/git/files/git-2.5.0.tar.qz
+
 	wget -nv http://aaronmulholland.co.uk/java.tar.gz -O /etc/puppet/modules/java/files/java.tar.gz
 	wget -nv http://aaronmulholland.co.uk/jira.bin -O /etc/puppet/modules/jira/files/jira.bin
 	wget -nv http://aaronmulhollandco.uk/maven.tar.gz -O /etc/puppet/modules/maven/files/maven.tar.gz
