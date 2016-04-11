@@ -16,7 +16,7 @@ class jira::install (
 	file { "${jira_path}/${jira_file}":
 		ensure  => 'present',
 		source  => "puppet:///modules/jira/${jira_file}",
-		mode 	=> 755,			  # script equivalent of chmod a+x 
+		mode 	=> 755,			  		  # script equivalent of chmod a+x 
 		require => File ["${jira_path}"]  # ensuring the file exists if not find the source
 	}
 		
