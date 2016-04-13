@@ -34,20 +34,16 @@ else # run provision for first time - install all
 	#certification
 	echo "jemmagent1.qac.local" >> /etc/puppet/autosign.conf
 
-	
-	
 	#create necessary directories
 	mkdir /etc/puppet/modules/{git,java,jira,maven,zabbix,jenkins}/files
 	
 	#download files
-    wget -nv http://arronmulholland.co.uk/git-2.8.1.tar.qz -O /etc/puppet/modules/git/files/git-2.8.1.tar.gz
+        wget -nv http://arronmulholland.co.uk/git-2.8.1.tar.qz -O /etc/puppet/modules/git/files/git-2.8.1.tar.gz
 	wget -nv http://aaronmulholland.co.uk/java.tar.gz -O /etc/puppet/modules/java/files/java.tar.gz
 	wget -nv http://aaronmulholland.co.uk/jira.bin -O /etc/puppet/modules/jira/files/jira.bin
 	wget -nv http://aaronmulhollandco.uk/maven.tar.gz -O /etc/puppet/modules/maven/files/maven.tar.gz
 	wget -nv http://repo.zabbix.com/zabbix/2.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.4-1+trusty_all.deb -O /etc/puppet/modules/zabbix/files/zabbix-2.4.1.deb
 	
-	puppet agent --enable
 fi
 
-puppet agent -tv
 exit 0
