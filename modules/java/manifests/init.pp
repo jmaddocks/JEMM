@@ -1,4 +1,4 @@
 class java {
-	include java::init
-	include java::config
+  include java::install
+  include java::config
 }
