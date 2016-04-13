@@ -1,12 +1,12 @@
-class java::config {
-	Exec {
-		path => ["/bin","/usr/bin","/usr/sbin"]
-	}
+class maven::config {
+  Exec {
+  path => ["/bin", "/usr/bin", "/usr/sbin"]
+  }
 
-	file {"/etc/profile.d/java.sh":
-		require => Exec["install_java"],
-		content => 'export JAVA_FOLDER=/usr/local/java/jdk1.7.0_79
-export PATH=$JAVA_FOLDER/bin:$PATH',
-		mode => 755
-	}
+  file {"/etc/profile.d/maven.sh":
+  require => Exec["install maven"],
+  content => 'export MAVEN_HOME=/usr/lib/maven/apache-maven-3.3.9
+export PATH=$MAVEN_HOME/bin:$PATH',
+  mode => 755
+  }
 }
