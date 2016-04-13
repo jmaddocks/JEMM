@@ -1,30 +1,49 @@
 class zabbix::install {
-	$zabbixPath= "/usr/lib/zabbix/",
-	$zabbixVersion = "zabbix-2.4.1")
-	
 
-	Exec {
-		path => ["/bin","/usr/bin","/usr/sbin"]
-	}
+    Exec {
+    path => ["/bin", "/usr/bin", "/usr/sbin", "/usr/local/sbin", "/sbin"]
+    }
 
-	file {"${zabbixPath}" :
-		ensure => 'directory'
-	}
-	
-	file { "${zabbixPath}${zabbixVersion}-bin.tar.gz":
-		ensure => 'present',
-		source => "puppet:///modules/zabbix/${zabbixVersion}-bin.tar.gz",
-		require => File["${zabbixPath}"]
-	}
+    package { "zabbix":
+    ensure => installed
+    }
 
-	exec { "extract zabbix" :
-		require	=> File["${zabbixPath}${zabbixVersion}-bin.tar.gz"],
-		cwd	=> "${zabbixPath}",
-		command	=> "tar zxvf ${zabbixVersion}-bin.tar.gz"
-	}
+    package { "zabbix-agent":
+    ensure => installed
+    }
 
-	exec { "install zabbix" :
-		require => Exec["extract zabbix"],
-		command => "update-alternatives --install /bin/zabbix zabbix ${zabbixPath}${zabbixVersion}/bin/zabbix 1"
-	}
+    exec { "remove the original zabbix agent config":
+    command => "rm /etc/zabbix/zabbix_agentd.conf",
+    onlyif  => "grep -c 'Hostname=Zabbix server' /etc/zabbix/zabbix_agentd.conf"
+    }->
+
+    file {"/etc/zabbix/zabbix_agentd.conf":
+    source  => "puppet:///modules/zabbix/zabbix_agentd.conf",
+    owner   => "root",
+    group   => "root",
+    mode    => "0644",
+    ensure  => "present",
+    replace => false
+    }->
+
+#       file_line { "Update ois zabbix agent config":
+#               line    => "Hostname=$hostname",
+#               path    => "/etc/zabbix/zabbix_agentd.conf",
+#               match   => "^Hostname=.*$",
+#               ensure  => "present",
+#               notify  => Service["zabbix-agent"]
+#       }
+
+    firewall { '202 allow communication with zabbix server':
+    port    => [10050],
+    proto   => tcp,
+    action  => accept
+    }
+
+    service { 'zabbix-agent':
+    ensure  => 'running',
+    enable  => true,
+    require => Package["zabbix-agent"]
+    }
+
 }
