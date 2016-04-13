@@ -1,30 +1,30 @@
-class maven::install {
-	$mavenPath = "/usr/lib/maven/",
-	$mavenVersion = "apache-maven-3.3.3")
+class maven::install (
+  $mavenPath = "/usr/lib/maven/",
+  $mavenVersion = "apache-maven-3.3.9")
+  
+  {
+  Exec {
+  path => ['/bin','/usr/bin','/usr/sbin']
+  }
+
+  file {"${mavenPath}" :
+  ensure => 'directory'
+  }
 	
+  file { "${mavenPath}maven.tar.gz":
+  ensure  => 'present',
+  source  => "puppet:///modules/maven/maven.tar.gz",
+  require => File["${mavenPath}"]
+  }
 
-	Exec {
-		path => ["/bin","/usr/bin","/usr/sbin"]
-	}
+  exec { "extract maven" :
+  require	=> File["${mavenPath}maven.tar.gz"],
+  cwd	    => "${mavenPath}",
+  command	=> "tar zxvf maven.tar.gz"
+  }
 
-	file {"${mavenPath}" :
-		ensure => 'directory'
-	}
-	
-	file { "${mavenPath}${mavenVersion}-bin.tar.gz":
-		ensure => 'present',
-		source => "puppet:///modules/maven/${mavenVersion}-bin.tar.gz",
-		require => File["${mavenPath}"]
-	}
-
-	exec { "extract maven" :
-		require	=> File["${mavenPath}${mavenVersion}-bin.tar.gz"],
-		cwd	=> "${mavenPath}",
-		command	=> "tar zxvf ${mavenVersion}-bin.tar.gz"
-	}
-
-	exec { "install maven" :
-		require => Exec["extract maven"],
-		command => "update-alternatives --install /bin/mvn mvn ${mavenPath}${mavenVersion}/bin/mvn 1"
-	}
+  exec { "install maven" :
+  require => Exec["extract maven"],
+  command => "update-alternatives --install /bin/mvn mvn ${mavenPath}${mavenVersion}/bin/mvn 1"
+  }
 }
