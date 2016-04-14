@@ -4,8 +4,8 @@ class maven::config {
 	}
 	
 	file {"/etc/profile.d/maven.sh":
-		require => Exec["install maven"],
-		content => 'export MAVEN_HOME=/usr/lib/maven/apache-maven-3.3.3
+		require => Exec['install maven'],
+		content => 'export MAVEN_HOME=/usr/lib/maven/apache-maven-3.3.9
 export PATH=$MAVEN_HOME/bin:$PATH',
 		mode => 755
 	}
